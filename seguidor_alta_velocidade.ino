@@ -5,8 +5,8 @@ static const int sD6 = A2;
 static const int sD5 = A3;
 static const int sD4 = A4;
 static const int sD3 = A5;
-static const int sD2 = 2;
-static const int sD1 = 4;
+static const int sD2 = 4;
+static const int sD1 = 2;
 
 // define portas saida ponte
 static const int pSB = 9;
@@ -37,8 +37,8 @@ void setup() {
 
   // standby e PWMs high no setup
   digitalWrite(pSB, HIGH);
-  digitalWrite(pPA, HIGH);
-  digitalWrite(pPB, HIGH);
+  analogWrite(pPA, 50);
+  analogWrite(pPB, 50);
 
 
   // define serial para saída
@@ -65,7 +65,21 @@ void loop() {
   }
   Serial.println();
 
-  frente();
+  int somaLeft = s1 + s2 + s3 + s4;
+  int somaRight = s5 + s6 + s7 + s8;
+
+  if (somaLeft > somaRight) {
+    direita();
+    Serial.println("direita");
+  }
+  else if (somaRight > somaLeft) {
+    esquerda();
+    Serial.println("esquerda");
+  }
+  else {
+    frente(); 
+    Serial.println("frente");
+  }
   delay(100);
 }
 
@@ -74,6 +88,20 @@ void frente() {
   // cada
   digitalWrite(pA1, HIGH);
   digitalWrite(pA2, LOW);
+  digitalWrite(pB1, LOW);
+  digitalWrite(pB2, HIGH);
+}
+
+void direita() {
+  digitalWrite(pA1, HIGH);
+  digitalWrite(pA2, LOW);
   digitalWrite(pB1, HIGH);
   digitalWrite(pB2, LOW);
+}
+
+void esquerda() {
+  digitalWrite(pA1, LOW);
+  digitalWrite(pA2, HIGH);
+  digitalWrite(pB1, LOW);
+  digitalWrite(pB2, HIGH);
 }
