@@ -16,12 +16,12 @@ static const int pB2 = 13;
 static const int pPA = 3;
 static const int pPB = 11;
 
-// --- CONTROLE AUTOMÁTICO DE VELOCIDADE ---
-static const int VELOCIDADE_RETO = 200; // <- MEXA APENAS AQUI para mudar a velocidade geral!
+// --- CONFIGURAÇÃO PARA VELOCIDADE INSANA ---
+static const int VELOCIDADE_RETO = 220; // De 200 a 255
 
-// O Arduino calcula o resto sozinho usando as proporções equilibradas:
-static const int VELOCIDADE_CURVA_MAIOR = constrain(VELOCIDADE_RETO * 1.4, 0, 255); 
-static const int VELOCIDADE_CURVA_MENOR = constrain(VELOCIDADE_RETO * 0.2, 0, 255);
+// Força máxima na roda de fora, torque zero na de dentro
+static const int VELOCIDADE_CURVA_MAIOR = 255; 
+static const int VELOCIDADE_CURVA_MENOR = 0;  // Força zero para a roda arrastar e o robô girar
 
 // Variável de memória: guarda a última direção decidida (0 = frente, 1 = esquerda, 2 = direita)
 int ultimaDirecao = 0; 
